@@ -43,48 +43,34 @@ int main(/*int argc, char *argv[]*/)
         input = getchar() ;
         result = -1 ;
 
-        /*
-        You can see some code are being repeated again and again for each switch-case.
-        Try to implement DRY.
-        */
-
-        printf("\nyour code here\n\n") ;
+		char command[20];
 
         switch(input) {
-            case 'i' :
-				char insertName[20];
-				
+            case 'i' :				
                 printf("Input note to insert: ") ;
-                scanf("%s", insertName) ;
-				DPRINT(printf("\nDEBUG - %s\n", insertName) ;) ;
+                scanf("%s", command) ;
+				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
 
-                result = insert_note(insertName) ;
-
-                if (result == 0) 	printf("Name exists in note.\n") ;
-                else 				printf("Successfully inserted!\n") ;
+                insert_note(command) ;
 
                 break ;
-            case 'c' :
-				char containName[20];
-				
+            case 'c' :			
                 printf("Input note to check contains: ") ;
-                scanf("%s", containName) ;
-                DPRINT(printf("\nDEBUG - %s\n", containName) ;) ;
+                scanf("%s", command) ;
+                DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
 
-				result = is_contained(containName) ;
+				result = is_contained(command) ;
 
 				if (result == 0)	printf("Name exists in note.\n") ;
                 else 				printf("Name does not exist in note.\n") ;
 
                 break ;
             case 'r' :
-                char removeName[20] ;
-				
                 printf("Input note to remove: ") ;
-                scanf("%s", removeName) ;
-				DPRINT(printf("\nDEBUG - %s\n", removeName) ;) ;
+                scanf("%s", command) ;
+				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
 
-				result = remove_note(removeName) ;
+				result = remove_note(command) ;
 
 				if (result == 0) 	printf("Successfully removed note\n") ;
                 else 				printf("Name does not exist in note.\n") ;

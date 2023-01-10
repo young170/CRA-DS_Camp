@@ -13,8 +13,14 @@
  */
 #include "list.h"
 
+typedef struct body {
+    char *date ;
+    char *body ;
+} Body ;
+
 typedef struct header {
     char *name ;
+    Body *body ;
     struct header *next ;
 } Header ;
 
@@ -29,6 +35,11 @@ int is_contained(char *title)
 	Header *itr = list.next ;
 
     printf("\nyour code here\n");
+	while (itr != 0x0) {	// until NULL
+		if (strcmp(title, itr->name) == 0)
+			return 0 ;
+		itr = itr->next ;
+	}
 
 	return 1 ;
 }
@@ -52,16 +63,27 @@ void insert_note(char *title)
 	// return 1 ;
 
     printf("\nyour code here\n") ;
+
+	Header *itr = &list;
+	while(itr->next != 0x0) {
+		itr = itr->next ;
+	}
+
+	Header *newNode = (Header *) malloc(sizeof(Header)) ;
+	newNode->name = (char *) malloc(strlen(title) + 1);
+	strcpy(newNode->name, title);
+	newNode->next = NULL ;
+
+    itr->next = newNode ;
 }
 
 void print_notes() 
 {
 	Header *itr = list.next ;
-	while (1/*your code here*/) {	// until NULL
+	while (itr != 0x0) {	// until NULL
 		printf("|") ; printf(" %s ", itr->name) ; printf("| --> ") ;
 		itr = itr->next ;
 	}
-	
 	printf("NULL\n") ;
 }
 
@@ -72,10 +94,11 @@ Think of the case when the title doesn't exists.
 int remove_note(char *title)
 {
 	Header *itr ;
-	for (;;/*your code here*/) {	// until NULL
+	for (itr = &list ; itr->next != 0x0 ; itr = itr->next) {	// until NULL
 		if (strcmp(itr->next->name, title) == 0) {
-
-			printf("\nyour code here\n");
+			Header *nextnext = itr->next->next ;
+			free(itr->next) ;
+			itr->next = nextnext ;
 
 			return 0 ;
 		}
@@ -91,10 +114,10 @@ Basic algorithm : repeatedly call remove_note() until the entire list is travers
 void clear() {
 	// printf("\nyour code here\n") ;
     Header *itr = list.next ;
-	Header *prev;
 
-    while(1) {
-		printf("\nyour code here\n");
+    while(itr != 0x0) {
+        Header *prev = itr ;
+        itr = itr->next ;
         DPRINT(printf("DEBUG - %s\n", prev->name) ;) ;
         free(prev) ;
     }

@@ -41,7 +41,7 @@ If the flag #if is on (1), the opposite of the above happens.
 #endif
 
 int is_contained(char *title) ;
-int insert_note(char *title) ;
+void insert_note(char *title) ;
 void print_notes() ;
 int remove_note(char *title) ;
 void clear() ;
