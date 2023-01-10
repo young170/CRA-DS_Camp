@@ -6,7 +6,7 @@
  * @date 2023-01-10 ~ 2023-01-13
  * 
  * Compile command : gcc -o note driver.c list.c -I../include
- * With arguments  : ./note "arguments'
+ * With arguments  : ./note <arguments>
  * 
  * This file is the driver file of the program.
  * Erase "your code here" printf()s and write your code!
@@ -26,7 +26,7 @@ These arguments allows us to use the program with command line arguments.
 int argc : number of arguments given *the executing argument "./a.out" is also counted.
 char *argv[] : string (character array) array of arguments.
 */
-int main(/*int argc, char *argv[]*/)
+int main (/*int argc, char *argv[]*/)
 {
 
     char input ;
@@ -34,16 +34,18 @@ int main(/*int argc, char *argv[]*/)
 
     do {
 
-        printf("\nNote - Linked List\n") ;
-        printf("\ti - insert\tr - remove\n") ;
-        printf("\tc - contains\tp - print\n") ;
-        printf("\tx - clear\tq - quit\n") ;
+        printf("\nNote - [Linked List]\n") ;
+        printf("\ti - insert\t\tr - remove\n") ;
+        printf("\tc - contains\t\tp - print\n") ;
+        printf("\tb - create content\tw - write content\n") ;
+        printf("\tx - clear\t\tq - quit\n") ;
 
         printf("Command[q to quit]: ") ;
         input = getchar() ;
         result = -1 ;
 
 		char command[20];
+        char content[100];
 
         switch(input) {
             case 'i' :				
@@ -78,6 +80,22 @@ int main(/*int argc, char *argv[]*/)
                 break ;
 			case 'p' :
                 print_notes() ;
+
+                break ;
+            case 'b' :
+                printf("Input name of note to create content: ") ;
+                scanf("%s", command) ;
+				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+
+                create_content(command) ;
+
+                break ;
+            case 'w' :
+                printf("Input name of note to write content: ") ;
+                scanf("%s", command) ;
+				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+
+                write_content(command) ;
 
                 break ;
 			case 'x' :

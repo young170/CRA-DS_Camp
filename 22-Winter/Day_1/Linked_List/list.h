@@ -6,7 +6,7 @@
  * @date 2023-01-10 ~ 2023-01-13
  * 
  * Compile command : gcc -o note driver.c list.c -I../include
- * With arguments  : ./note "arguments'
+ * With arguments  : ./note <arguments>
  * 
  * This file includes dependecies for the other files.
  * Set its include directory path to enable the compiler to access it.
@@ -27,7 +27,7 @@ Simply, if DEBUG is defined all functions surrounded with the DPRINT() will be a
 #ifdef DEBUG
 #define DPRINT(func) func;
 #else
-#define DPRINT(func) ;
+#define DPRINT(func);
 #endif
 
 /*
@@ -40,8 +40,24 @@ If the flag #if is on (1), the opposite of the above happens.
 #else
 #endif
 
-int is_contained(char *title) ;
-void insert_note(char *title) ;
-void print_notes() ;
-int remove_note(char *title) ;
-void clear() ;
+typedef struct body {
+    char *name;
+    struct header *head;
+} Body;
+
+typedef struct header {
+    char *name;
+	struct body *content;
+    struct header *next;
+} Header;
+
+Header list;
+
+int is_contained (char *title);
+void insert_note (char *title);
+void print_notes (void);
+int remove_note (char *title);
+void clear (void);
+void create_content (char *title);
+void write_content (char *title);
+Header* find (char *title);
