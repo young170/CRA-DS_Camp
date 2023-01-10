@@ -13,7 +13,7 @@ int main(void)
 
     while(1)
     {
-        printf("Input: ");
+        printf("Input number[0 to quit]: ");
         scanf("%d", &input);
 
         if(input == 0) break;
