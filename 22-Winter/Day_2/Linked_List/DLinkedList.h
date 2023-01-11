@@ -18,7 +18,7 @@ typedef struct _node
 typedef struct _linkedList
 {
     Node* head;
-    Node* cur;
+    Node* curr;
     Node* before;
     int numOfData;
 } LinkedList;

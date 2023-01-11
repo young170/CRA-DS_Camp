@@ -1,63 +1,64 @@
 #include "DLinkedList.h"
 
-void list_init (List* plist)
+void list_init (List *plist)
 {
-    plist->head = (Node*) malloc (sizeof(Node));
-    plist->head->next = NULL;
-    plist->numOfData = 0;
+    plist->head = (Node *) malloc (sizeof(Node));
+    plist->head->next = NULL;						// as it is the first pointer there exists no other
+    plist->numOfData = 0;							// head is just used as a pointer
 }
 
-
-void list_insert (List* plist, LData data)
+/* nodes are inserted to the front due to time complexity */
+void list_insert (List *plist, LData data)
 {
-    Node* newNode = (Node*) malloc(sizeof(Node));
+    Node *newNode = (Node *) malloc(sizeof(Node));
     newNode->data = data;
 
-    newNode->next = plist->head->next;
-    plist->head->next = newNode;
+    newNode->next = plist->head->next;				// inserting between the head and the first node
+    plist->head->next = newNode;					// head now points the new node
 
-    (plist->numOfData)++;
+    (plist->numOfData)++;							// increase the number of data
+													// brackets () added due to the rank of operators
 }
 
-int list_first (List* plist, LData* pdata)
+int list_first (List *plist, LData *pdata)
 {
     if (plist->head->next == NULL)
         return FALSE;
     
     plist->before = plist->head;
-    plist->cur = plist->head->next;
+    plist->curr = plist->head->next;
 
-    *pdata = plist->cur->data;
+    *pdata = plist->curr->data;
     return TRUE;
 }
 
-int list_next (List* plist, LData* pdata)
+int list_next (List *plist, LData *pdata)
 {
-    if (plist->cur->next == NULL)
+    if (plist->curr->next == NULL)
         return FALSE;
     
-    plist->before = plist->cur;
-    plist->cur = plist->cur->next;
+    plist->before = plist->curr;
+    plist->curr = plist->curr->next;
 
-    *pdata = plist->cur->data;
+    *pdata = plist->curr->data;
     return TRUE;
 }
 
-LData list_remove (List* plist) 
+LData list_remove (List *plist) 
 {
-    Node* rpos = plist->cur;
+    Node *rpos = plist->curr;
     LData rdata = rpos->data;
 
-    plist->before->next = plist->cur->next;
-    plist->cur = plist->before;
+    plist->before->next = plist->curr->next;
+    plist->curr = plist->before;
 
     free(rpos);
     (plist->numOfData)--;
     return rdata;
 }
 
-int list_count(List* plist)
+int list_count(List *plist)
 {
-    return plist->numOfData;
+    return plist->numOfData;	// returns (int) the number of data
 }
 
