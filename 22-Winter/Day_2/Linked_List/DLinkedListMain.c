@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "DLinkedList.h"
 
 int main (void)
@@ -9,15 +8,17 @@ int main (void)
     list_init(&list);
 
     /* store the five of data */
+    /* use alt + sht to copy line */
     list_insert(&list, 11);
     list_insert(&list, 11);
     list_insert(&list, 22);
     list_insert(&list, 22);
     list_insert(&list, 33);
 
-    /* print the all data */
-    printf("The number of data: %d \n", LCount(&list));
+    /* print the number of data */
+    printf("The number of data: %d \n", list_count(&list));
 
+    /* print all data */
     if (list_first(&list, &data)) {
         printf("%d ", data);
 
@@ -37,9 +38,10 @@ int main (void)
         }
     }
 
-    /* after the removal, print all remaining data */
+    /* after the removal, print the number of remaining data */
     printf("The number of data: %d \n", list_count(&list));
 
+    /* after the removal, print all remaining data */
     if (list_first(&list, &data)) {
         printf("%d ", data);
 

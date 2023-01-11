@@ -4,6 +4,9 @@
 #define TRUE    1
 #define FALSE   0
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef int LData;
 
 typedef struct _node 
@@ -22,13 +25,13 @@ typedef struct _linkedList
 
 typedef LinkedList List;
 
-void list_init (List* plist);
-void list_insert (List* plist, LData data);
+void list_init (List* plist);                   // initializes linked list
+void list_insert (List* plist, LData data);     // inserts new node to the front of the linked list
 
-int list_first (List* plist, LData* pdata);
-int list_next (List* plist, LData* pdata);
+int list_first (List* plist, LData* pdata);     // the first data of the list
+int list_next (List* plist, LData* pdata);      // the next data of the list
 
-LData list_remove (List* plist);
-int list_count (List* plist);
+LData list_remove (List* plist);                // removes current node from list
+int list_count (List* plist);                   // count of nodes in list
 
 #endif

@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "DLinkedList.h"
 
 void list_init (List* plist)
