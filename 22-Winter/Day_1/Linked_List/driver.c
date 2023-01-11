@@ -29,94 +29,101 @@ char *argv[] : string (character array) array of arguments.
 int main (/*int argc, char *argv[]*/)
 {
 
-    char input ;
-	int result ;
+    char input;
+	int result;
 
     do {
 
-        printf("\nNote - [Linked List]\n") ;
-        printf("\ti - insert\t\tr - remove\n") ;
-        printf("\tc - contains\t\tp - print\n") ;
-        printf("\tb - create content\tw - write content\n") ;
-        printf("\tx - clear\t\tq - quit\n") ;
+        printf("\nNote - [Linked List]\n");
+        printf("\ti - insert\t\tr - remove\n");
+        printf("\tc - contains\t\tp - print\n");
+        printf("\tb - create content\tw - write content\n");
+        printf("\tt - print recursive\tx - clear\n");
+        printf("\tq - quit\n");
 
-        printf("Command[q to quit]: ") ;
-        input = getchar() ;
-        result = -1 ;
+        printf("Command[q to quit]: ");
+        input = getchar();
+        result = -1;
 
 		char command[20];
         char content[100];
+        Header *temp = &list;
 
         switch(input) {
             case 'i' :				
-                printf("Input note to insert: ") ;
-                scanf("%s", command) ;
-				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+                printf("Input note to insert: ");
+                scanf("%s", command);
+				DPRINT(printf("\nDEBUG - %s\n", command););
 
-                insert_note(command) ;
+                insert_note(command);
 
-                break ;
+                break;
             case 'c' :			
-                printf("Input note to check contains: ") ;
-                scanf("%s", command) ;
-                DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+                printf("Input note to check contains: ");
+                scanf("%s", command);
+                DPRINT(printf("\nDEBUG - %s\n", command););
 
-				result = is_contained(command) ;
+				result = is_contained(command);
 
-				if (result == 0)	printf("Name exists in note.\n") ;
-                else 				printf("Name does not exist in note.\n") ;
+				if (result == 0)	printf("Name exists in note.\n");
+                else 				printf("Name does not exist in note.\n");
 
-                break ;
+                break;
             case 'r' :
-                printf("Input note to remove: ") ;
-                scanf("%s", command) ;
-				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+                printf("Input note to remove: ");
+                scanf("%s", command);
+				DPRINT(printf("\nDEBUG - %s\n", command););
 
-				result = remove_note(command) ;
+				result = remove_note(command);
 
-				if (result == 0) 	printf("Successfully removed note\n") ;
-                else 				printf("Name does not exist in note.\n") ;
+				if (result == 0) 	printf("Successfully removed note\n");
+                else 				printf("Name does not exist in note.\n");
 
-                break ;
+                break;
 			case 'p' :
-                print_notes() ;
+                print_notes();
 
-                break ;
+                break;
             case 'b' :
-                printf("Input name of note to create content: ") ;
-                scanf("%s", command) ;
-				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+                printf("Input name of note to create content: ");
+                scanf("%s", command);
+				DPRINT(printf("\nDEBUG - %s\n", command););
 
-                create_content(command) ;
+                create_content(command);
 
-                break ;
+                break;
             case 'w' :
-                printf("Input name of note to write content: ") ;
-                scanf("%s", command) ;
-				DPRINT(printf("\nDEBUG - %s\n", command) ;) ;
+                printf("Input name of note to write content: ");
+                scanf("%s", command);
+				DPRINT(printf("\nDEBUG - %s\n", command););
 
-                write_content(command) ;
+                write_content(command);
 
-                break ;
+                break;
+            case 't' :
+                printf("\n");
+                print_notes_recursive(temp);
+
+                break;
 			case 'x' :
-                clear() ;
+                clear();
 
-                break ;
+                break;
 			case 'q' :
-                break ;
+                break;
             default :
-                printf("- Unknown command\n") ;
-                continue ;
+                printf("- Unknown command\n");
+                continue;
         }
 
-		result = -1 ;
-        getchar() ;
+		result = -1;
+        getchar();
 
-    } while(input != 'q') ;
+    } while(input != 'q');
 
-    clear() ;
-    printf("Congratulations~~\n") ;
+    clear();
+    printf("Congratulations~~\n");
 
-    return 0 ;
+    return 0;
 
 }

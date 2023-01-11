@@ -27,8 +27,9 @@ Simply, if DEBUG is defined all functions surrounded with the DPRINT() will be a
 #ifdef DEBUG
 #define DPRINT(func) func;
 #else
-#define DPRINT(func);
+#define DPRINT(func) ;
 #endif
+
 
 /*
 In the code you will see the following.
@@ -61,3 +62,12 @@ void clear (void);
 void create_content (char *title);
 void write_content (char *title);
 Header* find (char *title);
+void print_notes_recursive(Header* head);
+
+
+/*
+These two conditionals are the most important concepts.
+If participants understand the difference then they're done:)
+*/
+// while(itr != NULL);
+// while(itr->next != NULL);
