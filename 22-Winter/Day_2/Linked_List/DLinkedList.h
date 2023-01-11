@@ -1,11 +1,15 @@
-#ifndef __D_LINKED_LIST_H__
-#define __D_LINKED_LIST_H__
+#ifndef __D_LINKED_LIST_H__     // if not defined, first time this file is imported
+#define __D_LINKED_LIST_H__     // so that #include files don't overlap
+
+#if 0
+#else
+#endif
 
 #define TRUE    1
 #define FALSE   0
 
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
 
 typedef int LData;
 
