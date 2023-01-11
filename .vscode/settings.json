@@ -9,6 +9,7 @@
         "system_error": "c",
         "unordered_map": "c",
         "vector": "c",
-        "dlinkedlist.h": "c"
+        "dlinkedlist.h": "c",
+        "listbasequeue.h": "c"
     }
 }
