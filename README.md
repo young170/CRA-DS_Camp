@@ -18,8 +18,7 @@ Camp를 하시면서 같이 작업한 코드를 보고 싶거나, 공부하고 �
     2. “..” 을 통해 상위 폴더로 이동 가능합니다.
 2. git clone <repository_url>
     1. git clone 뒤에 따라오는 <repository_url>은 :
-        1. https://github.com/NaMooJoon/2023_DS_camp.git
-        2. https://github.com/young170/CRA-DS_Camp.git
+        1. https://github.com/young170/CRA-DS_Camp.git
 
 Git이 없는 경우 아래 설명을 먼저 수행합니다 :
 1. https://www.jcchouinard.com/install-git/
