@@ -36,8 +36,8 @@ void enqueue(Queue * pq, Data data)
 
 Data dequeue(Queue * pq)
 {
-	Node * delNode;
-	Data retData;
+	Node * delNode;     // the node to delete
+	Data retData;       // the data of the deleted node
 
 	if(q_is_empty(pq))
 	{

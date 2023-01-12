@@ -57,7 +57,7 @@ int main () {
 			printf("decompress!\n");
 			printf("Enter the target file > ");
 			scanf("%s", filename);
-			// decompress_file(filename);
+			decompress_file(filename);
 
 			break;
 		default:
@@ -82,6 +82,7 @@ void compress_file(char* filename)
 
 	input = fopen(filename, "rb");
 	output = fopen(strcat(filename, ".myzip"), "wb");
+
 	if (input == NULL || output == NULL) {
 		fprintf(stderr, "Failed to open file \n");
 		return ;
@@ -91,6 +92,105 @@ void compress_file(char* filename)
 
 	fclose(input);
 	fclose(output);
+}
+
+/*
+The basic structure is similar to compress_file()
+*/
+void decompress_file(char* filename)
+{
+    FILE *input = NULL;
+    FILE *output = NULL;
+
+    input = fopen(filename, "rb");
+    output = fopen(strcat(filename, ".unzip"), "wb");
+
+    if (input == NULL || output == NULL) {
+		fprintf(stderr, "Failed to open file \n");
+		return ;
+	}
+
+    my_decode_body(input, output);
+    
+    fclose(input);
+    fclose(output);
+}
+
+void my_decode_body(FILE* input, FILE* output)
+{
+    Buffer input_buffer;	// read input from file stream (8 bit)
+    Buffer my_buffer;		// writes 5 bit data to 8 bit
+
+	buffer_set(&input_buffer, 0, 0);
+	buffer_set(&my_buffer, 0, 0);
+	int byte, ch;
+
+	while (1)
+	{
+		if (input_buffer.idx == 0) {
+			byte = fgetc(input);
+
+			if (byte == EOF) break;
+			buffer_set(&input_buffer, byte, 8);	// by 8 bit
+		}
+
+		/* get next bit */
+		// the bit at the front (msb) will be assigned to bit (int)
+		int bit = input_buffer.data >> 7;
+		// get the bit and decrease the count
+		buffer_set(&input_buffer, input_buffer.data << 1, input_buffer.idx - 1);
+
+		/* push the bit into my_buffer */
+		push_buffer(&my_buffer, output, bit, 1);
+
+		if ((ch = get_character(&my_buffer)) != -1)	{	// it is a compressed bit
+			fputc(ch, output);
+			buffer_set(&my_buffer, 0, 0);
+		}
+
+	}
+}
+
+int get_character(Buffer* buf)
+{
+	if ((buf->data >> (buf->idx - 1)) == 0)	// check if the buffer's first bit is 0
+		return -1;							// return -1 to indicate it is not compressed
+
+    switch(buf->data)
+	{
+		case 0b10000:	// is the binary 10000 (comp val)? return 32 (orig val)
+			return 32;
+		case 0b10001:
+			return 101;
+		case 0b10010:
+			return 116;
+		case 0b10011:
+			return 111;
+		case 0b10100:
+			return 97;
+		case 0b10101:
+			return 104;
+		case 0b10110:
+			return 110;
+		case 0b10111:
+			return 115;
+		case 0b11000:
+			return 105;
+		case 0b11001:
+			return 114;
+		case 0b11010:
+			return 100;
+		case 0b11011:
+			return 108;
+		case 0b11100:
+			return 117;
+		case 0b11101:
+			return 109;
+		default:		// not a compressed data
+			break;
+	}
+
+	return -1;			// error checking
 }
 
 void buffer_set(Buffer* buf, int data, int idx)
@@ -108,6 +208,7 @@ void push_buffer (Buffer* buf, FILE* output, int data, int size)
 
 		// windows may ignore this causing the program to produce an empty file
 		// use >= instead of > to solve the problem, but causes an extra bit to be written
+		// Solution : windows (and mac) need initialization of 0 using buffer_set()
 		if (buf->idx == 8) {
 			fputc(buf->data, output);
 			buffer_set(buf, 0, 0);
