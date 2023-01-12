@@ -203,7 +203,7 @@ void push_buffer (Buffer* buf, FILE* output, int data, int size)
 {
 	for(int i = size - 1; i >= 0; i--) {
 		buf->data = buf->data << 1;
-		buf->data = ((data & (1 << i)) == 0) ? 0 : 1;
+		buf->data += ((data & (1 << i)) == 0) ? 0 : 1;
 		buf->idx++;
 
 		// windows may ignore this causing the program to produce an empty file
