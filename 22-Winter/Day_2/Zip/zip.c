@@ -264,10 +264,10 @@ void my_encode_body(FILE* input, FILE* output)
 
 		switch (byte) {
 		case 32:
-			push_buffer(&my_buffer, output, 0b10000, 5);
+			push_buffer(&my_buffer, output, 0b10000, 5);    // 16
 			break;
 		case 101:
-			push_buffer(&my_buffer, output, 0b10001, 5);
+			push_buffer(&my_buffer, output, 0b10001, 5);    // 17 -> ++
 			break;
 		case 116:
 			push_buffer(&my_buffer, output, 0b10010, 5);
